@@ -1,5 +1,7 @@
+import React from "react";
+
 /* Layout Components */
-import Modal from "./Modal";
+import UncontrolledModal from "./UncontrolledModal";
 import LargeProductListItem from "./product/LargeProductListItem";
 import products from "./product/productsData";
 
@@ -9,6 +11,39 @@ import ProductInfo from "./product/ProductInfo";
 import ResourceLoader from "./ResourceLoader";
 import DataSource from "./DataSource";
 import axios from "axios";
+
+/* Controlled and Uncontralled Components */
+import { UncontrolledForm } from "./UncontrolledForm";
+import { ControlledForm } from "./ControlledForm";
+import { ControlledModal } from "./ControlledModal";
+
+function ControlledModalComponent() {
+  const [shouldShowModal, setShouldShowModal] = React.useState(false);
+
+  return (
+    <>
+      <ControlledModal
+        shouldShow={shouldShowModal}
+        onRequestClose={() => setShouldShowModal(false)}
+      >
+        <h1>Hello!</h1>
+      </ControlledModal>
+      <button onClick={() => setShouldShowModal(!shouldShowModal)}>
+        {shouldShowModal ? "Hide Modal" : "Show Modal"}
+      </button>
+    </>
+  );
+}
+
+export default ControlledModalComponent;
+
+export const UncontrolledFormComponent = () => {
+  return <UncontrolledForm />;
+};
+
+export const ControlledFormComponent = () => {
+  return <ControlledForm />;
+};
 
 const getLocalStorageData = (key) => () => {
   return localStorage.getItem(key);
@@ -37,8 +72,6 @@ export function DataSourceComponent() {
   );
 }
 
-export default DataSourceComponent;
-
 export function ResourceLoaderComponent() {
   return (
     <>
@@ -55,9 +88,9 @@ export function ResourceLoaderComponent() {
 export function ModalComponent() {
   return (
     <>
-      <Modal>
+      <UncontrolledModal>
         <LargeProductListItem product={products[0]} />
-      </Modal>
+      </UncontrolledModal>
     </>
   );
 }
