@@ -12,12 +12,70 @@ import ResourceLoader from "./ResourceLoader";
 import DataSource from "./DataSource";
 import axios from "axios";
 
-/* Controlled and Uncontralled Components */
+/* Controlled and Uncontrolled Components */
 import { UncontrolledForm } from "./UncontrolledForm";
 import { ControlledForm } from "./ControlledForm";
 import { ControlledModal } from "./ControlledModal";
+import { UncontrolledOnboardingFlow } from "./UncontrolledOnboardingFlow";
+import { ControlledOnboardingFlow } from "./ControlledOnboardingFlow";
 
-function ControlledModalComponent() {
+const StepOne = ({ goToNext }) => (
+  <>
+    <h1>Step 1</h1>
+    <button onClick={() => goToNext({ name: "Tiago Tavares" })}>Next</button>
+  </>
+);
+const StepTwo = ({ goToNext }) => (
+  <>
+    <h1>Step 2</h1>
+    <button onClick={() => goToNext({ age: 100 })}>Next</button>
+  </>
+);
+const StepThree = ({ goToNext }) => (
+  <>
+    <h1>Step 3</h1>
+    <p>Congratulations! You qualify for our senior discount</p>
+    <button onClick={() => goToNext({})}>Next</button>
+  </>
+);
+
+const StepFour = ({ goToNext }) => (
+  <>
+    <h1>Step 4</h1>
+    <button onClick={() => goToNext({ hairColor: "brown" })}>Next</button>
+  </>
+);
+
+export default function ControlledOnboardingFlowComponent() {
+  const [onboardingData, setOnboardingData] = React.useState({});
+  const [currentIndex, setCurrentIndex] = React.useState(0);
+
+  const onNext = (stepData) => {
+    setOnboardingData({ ...onboardingData, ...stepData });
+    setCurrentIndex(currentIndex + 1);
+  };
+
+  return (
+    <ControlledOnboardingFlow currentIndex={currentIndex} onNext={onNext}>
+      <StepOne />
+      <StepTwo />
+      {onboardingData.age >= 62 && <StepThree />}
+      <StepFour />
+    </ControlledOnboardingFlow>
+  );
+}
+
+export function UncontrolledOnboardingFlowComponent() {
+  return (
+    <UncontrolledOnboardingFlow onFinish={(data) => console.log(data)}>
+      <StepOne />
+      <StepTwo />
+      <StepThree />
+    </UncontrolledOnboardingFlow>
+  );
+}
+
+export function ControlledModalComponent() {
   const [shouldShowModal, setShouldShowModal] = React.useState(false);
 
   return (
@@ -34,8 +92,6 @@ function ControlledModalComponent() {
     </>
   );
 }
-
-export default ControlledModalComponent;
 
 export const UncontrolledFormComponent = () => {
   return <UncontrolledForm />;
