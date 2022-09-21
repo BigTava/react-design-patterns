@@ -19,6 +19,30 @@ import { ControlledModal } from "./ControlledModal";
 import { UncontrolledOnboardingFlow } from "./UncontrolledOnboardingFlow";
 import { ControlledOnboardingFlow } from "./ControlledOnboardingFlow";
 
+/* Higher-Order Components */
+import printProps from "./printProps";
+import { withUser } from "./user/withUser";
+import { UserInfoForm } from "./user/UserInfoForm";
+
+/* Higher-Order Components */
+
+export default function UserInfoFormComponent() {
+  return <UserInfoForm />;
+}
+
+const UserInfoWithLoader = withUser(UserInfo, "111");
+
+export function UserInfoWithLoaderComponent() {
+  return <UserInfoWithLoader />;
+}
+
+const UserInfoWrapped = printProps(UserInfo);
+
+export function UserInfoWrappedComponent() {
+  return <UserInfoWrapped a={1} b={"hello"} c={{ name: "Tiago" }} />;
+}
+
+/* Controlled and Uncontrolled Components */
 const StepOne = ({ goToNext }) => (
   <>
     <h1>Step 1</h1>
@@ -46,7 +70,7 @@ const StepFour = ({ goToNext }) => (
   </>
 );
 
-export default function ControlledOnboardingFlowComponent() {
+export function ControlledOnboardingFlowComponent() {
   const [onboardingData, setOnboardingData] = React.useState({});
   const [currentIndex, setCurrentIndex] = React.useState(0);
 
@@ -101,6 +125,7 @@ export const ControlledFormComponent = () => {
   return <ControlledForm />;
 };
 
+/* Container Components */
 const getLocalStorageData = (key) => () => {
   return localStorage.getItem(key);
 };
@@ -141,6 +166,7 @@ export function ResourceLoaderComponent() {
   );
 }
 
+/* Layout Components */
 export function ModalComponent() {
   return (
     <>
