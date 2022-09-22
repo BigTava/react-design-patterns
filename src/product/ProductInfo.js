@@ -1,4 +1,7 @@
-const ProductInfo = ({ product }) => {
+import useResource from "../hooks/useResource";
+
+const ProductInfo = ({ productId }) => {
+  const product = useResource(`/products/${productId}`);
   const { name, price, description, rating } = product || {};
   return product ? (
     <>

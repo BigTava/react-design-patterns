@@ -24,9 +24,20 @@ import printProps from "./printProps";
 import { withUser } from "./user/withUser";
 import { UserInfoForm } from "./user/UserInfoForm";
 
-/* Higher-Order Components */
+/* Custom Hooks Patterns */
 
-export default function UserInfoFormComponent() {
+/* Custom Hooks Patterns */
+export default function UseCurrentUserComponent() {
+  return (
+    <>
+      <UserInfo userId={111} />
+      <ProductInfo productId="1111" />
+    </>
+  );
+}
+
+/* Higher-Order Components */
+export function UserInfoFormComponent() {
   return <UserInfoForm />;
 }
 
