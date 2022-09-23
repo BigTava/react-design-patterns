@@ -24,10 +24,66 @@ import printProps from "./printProps";
 import { withUser } from "./user/withUser";
 import { UserInfoForm } from "./user/UserInfoForm";
 
-/* Custom Hooks Patterns */
+/* Recursive Components */
+import { RecursiveComponent } from "./RecursiveComponent";
+
+/* Component Composition */
+import { DangerButton } from "./composition";
+import { BigSuccessButton } from "./composition";
+
+/* Partially applied components */
+import { DangerButton as PartiallyDangerButton } from "./composition";
+import { BigSuccessButton as PartiallyBigSuccessButton } from "./composition";
+
+/* Partially applied components */
+export default function App() {
+  return (
+    <>
+      <PartiallyDangerButton text="Don't do it!" />
+      <PartiallyBigSuccessButton text="Yes!!!" />
+    </>
+  );
+}
+
+/* Component Composition */
+export function CompositionComponents() {
+  return (
+    <>
+      <DangerButton text="Don't do it!" />
+      <BigSuccessButton text="Yes!!!" />
+    </>
+  );
+}
+
+/* Recursive Components */
+const nestedObject = {
+  a: 1,
+  b: {
+    b1: 4,
+    b2: {
+      b23: "Hello",
+    },
+    b3: {
+      b31: {
+        message: "Hi",
+      },
+      b32: {
+        message: "Hi",
+      },
+    },
+  },
+  c: {
+    c1: 2,
+    c2: 3,
+  },
+};
+
+export function RecursiveApp() {
+  return <RecursiveComponent data={nestedObject} />;
+}
 
 /* Custom Hooks Patterns */
-export default function UseCurrentUserComponent() {
+export function UseCurrentUserComponent() {
   return (
     <>
       <UserInfo userId={111} />
